@@ -10,22 +10,28 @@ public class MyServiceTest {
     @Test
     void testExternalApi() {
 
-        // Step 1: Create mock
         ExternalApi mockApi = mock(ExternalApi.class);
-
-        // Step 2: Stub method
         when(mockApi.getData())
                 .thenReturn("Mock Data");
-
-        // Step 3: Inject mock
         MyService service =
                 new MyService(mockApi);
 
-        // Step 4: Call method
         String result =
                 service.fetchData();
 
-        // Step 5: Verify output
         assertEquals("Mock Data", result);
     }
-}
+        @Test
+        public void testVerify() {
+            System.out.println("Creating mock ExternalApi");
+            ExternalApi mockApi = mock(ExternalApi.class);
+            //Stub method
+            when(mockApi.getData()).thenReturn("Mocked Response");
+            MyService service = new MyService(mockApi);
+            String result = service.fetchData();
+            //Verification
+            verify(mockApi).getData();
+            assertEquals("Mocked Response", result);
+            System.out.println("Verification Successfully Passed function was called and returned: " + result);
+        }
+    }
